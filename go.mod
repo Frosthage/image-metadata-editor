@@ -1,4 +1,4 @@
-module github.com/frosthage/image-metadata-editor
+module github.com/Frosthage/image-metadata-editor
 
 go 1.25
 
