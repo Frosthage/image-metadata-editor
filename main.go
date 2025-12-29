@@ -179,7 +179,7 @@ func newCSVWriter(w io.Writer) *csvWriter {
 func (w *csvWriter) Write(record []string) error {
 	for i, field := range record {
 		if i > 0 {
-			if err := w.writeString(","); err != nil {
+			if err := w.writeString(";"); err != nil {
 				return err
 			}
 		}
@@ -200,7 +200,7 @@ func (w *csvWriter) writeString(value string) error {
 }
 
 func encodeCSVField(field string) string {
-	needsQuotes := strings.ContainsAny(field, "\",\n\r")
+	needsQuotes := strings.ContainsAny(field, "\";\n\r")
 	if !needsQuotes {
 		return field
 	}
@@ -252,7 +252,7 @@ func parseCSVLine(line string) ([]string, error) {
 				continue
 			}
 			inQuotes = !inQuotes
-		case ',':
+		case ';':
 			if inQuotes {
 				field.WriteByte(ch)
 				continue
